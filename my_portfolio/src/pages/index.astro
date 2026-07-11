@@ -1,17 +1,48 @@
 ---
-
+// src/pages/index.astro
+import '../styles/global.css';
+// 1. Properly import the custom background component
+import TechParticles from '../components/TechParticles.astro';
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Binuk</h1>
-	</body>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My Portfolio</title>
+</head>
+
+<body class="bg-[#050507] text-white font-sans overflow-hidden min-h-screen relative">
+
+<TechParticles />
+
+<main class="relative z-10 flex min-h-screen flex-col items-center justify-center p-6 text-center">
+
+    <div class="absolute w-48 h-48 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight max-w-4xl">
+        Hello, I'm <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Binuk Pinsara</span>
+    </h1>
+
+    <p class="mt-6 text-xl text-zinc-400 max-w-2xl font-light">
+        A Full-Stack Developer specializing in seamless user experiences and <span class="text-cyan-300">scalable, high-performance web applications</span>.
+    </p>
+
+    <div class="mt-10 flex gap-4">
+        <a href="#projects" class="px-8 py-3 bg-white text-black font-semibold rounded-md shadow-lg hover:bg-zinc-200 transition-all duration-150 transform hover:scale-[1.02]">
+            View Projects
+        </a>
+        <a href="/resume.pdf" class="px-8 py-3 bg-zinc-800 text-zinc-100 font-medium rounded-md hover:bg-zinc-700/80 transition-all duration-150 flex items-center gap-2 border border-zinc-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            My Resume
+        </a>
+    </div>
+
+</main>
+
+</body>
 </html>

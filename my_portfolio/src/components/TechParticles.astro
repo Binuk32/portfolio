@@ -1,0 +1,74 @@
+---
+// src/components/TechParticles.astro
+---
+
+<div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-60"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js" is:inline></script>
+
+<script is:inline>
+    (async () => {
+        const container = document.getElementById("tsparticles-grid");
+
+        const options = {
+            background: { color: { value: "#0a0a0c" } },
+            fpsLimit: 90,
+            interactivity: {
+                events: {
+                    onClick: { enable: true, mode: "push" },
+                    onHover: {
+                        enable: true,
+                        mode: "bubble"
+                    },
+                    resize: true,
+                },
+                modes: {
+                    bubble: {
+                        distance: 120,
+                        size: 6,
+                        opacity: 1,
+                        duration: 2,
+                        color: "#ffffff" // Hovered nodes will gleam bright white
+                    },
+                    push: { quantity: 4 },
+                },
+            },
+            particles: {
+                // --- CHANGED CHANNELS: Array of Red, Blue, and White ---
+                color: {
+                    value: [
+                        "#ef4444", // Vibrant Red
+                        "#3b82f6", // Electric Blue
+                        "#ffffff"  // Crisp White
+                    ]
+                },
+                links: {
+                    color: "#3b82f6", // Changed link lines to match the electric blue
+                    distance: 130,
+                    enable: true,
+                    opacity: 0.15,
+                    width: 0.8,
+                },
+                collisions: { enable: true },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: { default: "bounce" },
+                    random: false,
+                    speed: 1.2,
+                    straight: false,
+                },
+                number: {
+                    density: { enable: true, area: 1000 },
+                    value: 65
+                },
+                opacity: { value: 0.5 }, // Bumped up slightly so white/red look crisp
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 2.5 } },
+            },
+            detectRetina: true,
+        };
+
+        await tsParticles.load("tsparticles-grid", options);
+    })();
+</script>
