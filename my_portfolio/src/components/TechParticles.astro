@@ -1,74 +1,77 @@
----
-// src/components/TechParticles.astro
----
-
-<div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-60"></div>
+<!-- src/components/TechParticles.astro -->
+<div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-100">
+    <!-- Overlay for added background texture -->
+    <div class="absolute inset-0 bg-[#050507]/20 backdrop-blur-[2px]"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js" is:inline></script>
 
 <script is:inline>
     (async () => {
-        const container = document.getElementById("tsparticles-grid");
-
-        const options = {
-            background: { color: { value: "#0a0a0c" } },
-            fpsLimit: 90,
+        await tsParticles.load("tsparticles-grid", {
+            background: { color: { value: "#050507" } }, // Dark, rich canvas
+            fpsLimit: 120,
             interactivity: {
                 events: {
-                    onClick: { enable: true, mode: "push" },
+                    onClick: { enable: true, mode: "repulse" }, // Dynamic repulse effect on click
                     onHover: {
                         enable: true,
-                        mode: "bubble"
+                        mode: ["bubble", "grab"] // Dual hover mode for bubbles and connecting lines
                     },
                     resize: true,
                 },
                 modes: {
                     bubble: {
-                        distance: 120,
-                        size: 6,
-                        opacity: 1,
-                        duration: 2,
-                        color: "#ffffff" // Hovered nodes will gleam bright white
+                        distance: 180, // Expands interaction range slightly
+                        size: 8, // Bubbles grow larger
+                        duration: 1.5,
+                        // Bubbles now gleam with a brilliant cyan/blue gradient
+                        color: ["#22d3ee", "#3b82f6", "#ffffff"],
+                        opacity: 1 // Full visibility on hover
                     },
-                    push: { quantity: 4 },
+                    grab: {
+                        distance: 200,
+                        links: {
+                            opacity: 0.35, // Lines connected to mouse become much brighter
+                            color: "#22d3ee" // Highlighted lines pulse cyan
+                        }
+                    },
+                    repulse: { distance: 150 },
                 },
             },
             particles: {
-                // --- CHANGED CHANNELS: Array of Red, Blue, and White ---
                 color: {
-                    value: [
-                        "#ef4444", // Vibrant Red
-                        "#3b82f6", // Electric Blue
-                        "#ffffff"  // Crisp White
-                    ]
+                    // Main particles oscillate between these electric colors
+                    value: ["#ffffff", "#3b82f6", "#22d3ee"]
                 },
                 links: {
-                    color: "#3b82f6", // Changed link lines to match the electric blue
-                    distance: 130,
+                    // Links glow with a consistent electric blue
+                    color: { value: "#3b82f6" },
+                    distance: 160, // Sparser grid is more elegant
                     enable: true,
-                    opacity: 0.15,
-                    width: 0.8,
+                    opacity: 0.2, // Higher default link visibility
+                    width: 0.9,
                 },
-                collisions: { enable: true },
                 move: {
                     direction: "none",
                     enable: true,
-                    outModes: { default: "bounce" },
-                    random: false,
-                    speed: 1.2,
+                    outModes: { default: "out" }, // Smooth transitions across screen edges
+                    speed: { min: 0.5, max: 1.5 }, // Variable speeds create natural movement
                     straight: false,
                 },
                 number: {
-                    density: { enable: true, area: 1000 },
-                    value: 65
+                    density: { enable: true, area: 900 },
+                    value: 85 // Optimized particle count for atmospheric flow
                 },
-                opacity: { value: 0.5 }, // Bumped up slightly so white/red look crisp
+                opacity: {
+                    value: { min: 0.3, max: 0.8 }, // Variable opacity creates depth
+                },
                 shape: { type: "circle" },
-                size: { value: { min: 1, max: 2.5 } },
+                size: {
+                    value: { min: 1, max: 3.5 }, // Slightly larger maximum particle size
+                },
             },
             detectRetina: true,
-        };
-
-        await tsParticles.load("tsparticles-grid", options);
+        });
     })();
 </script>
