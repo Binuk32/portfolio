@@ -1,6 +1,4 @@
-<!-- src/components/TechParticles.astro -->
 <div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-100">
-    <!-- Overlay for added background texture -->
     <div class="absolute inset-0 bg-[#050507]/20 backdrop-blur-[2px]"></div>
 </div>
 
@@ -8,32 +6,35 @@
 
 <script is:inline>
     (async () => {
+        // Quick check to see if the user is on a mobile device
+        const isMobile = window.innerWidth < 768;
+
         await tsParticles.load("tsparticles-grid", {
-            background: { color: { value: "#050507" } }, // Dark, rich canvas
-            fpsLimit: 120,
+            background: { color: { value: "#050507" } },
+            // Lower FPS limit on mobile dramatically reduces CPU usage
+            fpsLimit: isMobile ? 60 : 120,
             interactivity: {
                 events: {
-                    onClick: { enable: true, mode: "repulse" }, // Dynamic repulse effect on click
+                    onClick: { enable: true, mode: "repulse" },
                     onHover: {
-                        enable: true,
-                        mode: ["bubble", "grab"] // Dual hover mode for bubbles and connecting lines
+                        enable: !isMobile, // Disable hover interactions on mobile (since there is no mouse hover)
+                        mode: ["bubble", "grab"]
                     },
                     resize: true,
                 },
                 modes: {
                     bubble: {
-                        distance: 180, // Expands interaction range slightly
-                        size: 8, // Bubbles grow larger
+                        distance: 180,
+                        size: 8,
                         duration: 1.5,
-                        // Bubbles now gleam with a brilliant cyan/blue gradient
                         color: ["#22d3ee", "#3b82f6", "#ffffff"],
-                        opacity: 1 // Full visibility on hover
+                        opacity: 1
                     },
                     grab: {
                         distance: 200,
                         links: {
-                            opacity: 0.35, // Lines connected to mouse become much brighter
-                            color: "#22d3ee" // Highlighted lines pulse cyan
+                            opacity: 0.35,
+                            color: "#22d3ee"
                         }
                     },
                     repulse: { distance: 150 },
@@ -41,37 +42,38 @@
             },
             particles: {
                 color: {
-                    // Main particles oscillate between these electric colors
                     value: ["#ffffff", "#3b82f6", "#22d3ee"]
                 },
                 links: {
-                    // Links glow with a consistent electric blue
                     color: { value: "#3b82f6" },
-                    distance: 160, // Sparser grid is more elegant
+                    distance: isMobile ? 130 : 160, // Tighter distance on mobile so links aren't stretched
                     enable: true,
-                    opacity: 0.2, // Higher default link visibility
+                    opacity: isMobile ? 0.15 : 0.2, // Slightly fainter links to save rendering power
                     width: 0.9,
                 },
                 move: {
                     direction: "none",
                     enable: true,
-                    outModes: { default: "out" }, // Smooth transitions across screen edges
-                    speed: { min: 0.5, max: 1.5 }, // Variable speeds create natural movement
+                    outModes: { default: "out" },
+                    // Slower movement on mobile looks cleaner and performs better
+                    speed: isMobile ? { min: 0.3, max: 0.8 } : { min: 0.5, max: 1.5 },
                     straight: false,
                 },
                 number: {
                     density: { enable: true, area: 900 },
-                    value: 85 // Optimized particle count for atmospheric flow
+                    // Drop the particle count significantly on mobile
+                    value: isMobile ? 35 : 85
                 },
                 opacity: {
-                    value: { min: 0.3, max: 0.8 }, // Variable opacity creates depth
+                    value: { min: 0.3, max: 0.8 },
                 },
                 shape: { type: "circle" },
                 size: {
-                    value: { min: 1, max: 3.5 }, // Slightly larger maximum particle size
+                    value: { min: 1, max: 3.5 },
                 },
             },
-            detectRetina: true,
+            // Disable retina detection on mobile to prevent rendering 4x the pixels
+            detectRetina: !isMobile,
         });
     })();
 </script>
