@@ -3,11 +3,21 @@
 /* Direct html base styling for instant browser compatibility */
 html {
     scroll-behavior: smooth !important;
-    scroll-padding-top: 80px; /* Aligns content cleanly below sticky Navbar */
+    scroll-padding-top: 120px; /* Aligns content cleanly below sticky Navbar with extra breathing room */
     background-color: #050507;
+    /* Allows sticky children to calculate scroll container boundaries correctly */
+    overflow-x: clip;
 }
 
-/* Optional fine-tuning: Ensure the particles background doesn't block clicks */
+body {
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    /* Clips horizontal overflow without breaking sticky children */
+    overflow-x: clip;
+}
+
+/* Ensure the particles background doesn't block clicks or mobile drag-to-scroll */
 #tsparticles, canvas {
     pointer-events: none !important;
+    touch-action: none !important;
 }
