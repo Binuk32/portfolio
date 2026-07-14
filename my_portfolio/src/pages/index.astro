@@ -3,6 +3,8 @@
 import '../styles/global.css';
 import TechParticles from '../components/TechParticles.astro';
 import Navbar from '../components/Navbar.astro';
+// 1. Import the new Experience Section Component
+import Experience from '../components/Experience.astro';
 import { Image } from 'astro:assets';
 import profilePhoto from '../assets/profile_photo.jpg';
 ---
@@ -25,6 +27,7 @@ import profilePhoto from '../assets/profile_photo.jpg';
 
     <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
+    <!-- LEFT COLUMN: Typography & Actions -->
     <div class="flex flex-col items-start text-left max-w-2xl flex-1 order-2 md:order-1">
 
         <p class="text-zinc-400 text-lg md:text-xl font-medium tracking-wide mb-2">
@@ -40,7 +43,9 @@ import profilePhoto from '../assets/profile_photo.jpg';
             I enjoy working across the entire development stack—from designing intuitive user interfaces to developing secure, scalable backend systems—and I'm constantly exploring new tools and best practices to improve my craft.
         </p>
 
+        <!-- Dynamic Action Buttons -->
         <div class="mt-8 flex flex-wrap items-center gap-5">
+            <!-- Premium Glow "View Projects" Button -->
             <a href="#projects" class="relative group/btn inline-flex items-center justify-center px-8 py-3.5 font-semibold text-white bg-zinc-950 rounded-xl overflow-hidden transition-all duration-300 border border-zinc-800 hover:border-cyan-500/50 shadow-xl hover:shadow-cyan-500/10 transform hover:scale-[1.02]">
                 <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
                 <span class="relative flex items-center gap-2 text-sm tracking-wide">
@@ -51,6 +56,7 @@ import profilePhoto from '../assets/profile_photo.jpg';
                 </span>
             </a>
 
+            <!-- Secondary Contact Button -->
             <a href="#contact" class="px-8 py-3.5 bg-zinc-900/40 text-zinc-300 hover:text-white font-medium text-sm tracking-wide rounded-xl hover:bg-zinc-800/60 transition-all duration-150 flex items-center gap-2 border border-zinc-800/80 hover:border-zinc-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -60,6 +66,7 @@ import profilePhoto from '../assets/profile_photo.jpg';
         </div>
     </div>
 
+    <!-- RIGHT COLUMN: Premium Shape Profile Frame -->
     <div class="flex justify-center items-center flex-1 order-1 md:order-2">
         <div class="relative group">
             <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-blue-600/20 rounded-[2rem] md:rounded-[3.5rem] blur-2xl opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"></div>
@@ -75,5 +82,9 @@ import profilePhoto from '../assets/profile_photo.jpg';
     </div>
 
 </main>
+
+<!-- 2. Display the experience section below the hero wrap -->
+<Experience />
+
 </body>
 </html>
