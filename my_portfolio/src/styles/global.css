@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
-/* src/styles/global.css */
+/* Direct html base styling for instant browser compatibility */
 html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Prevents the sticky navbar from covering the top of your section! */
+    scroll-behavior: smooth !important;
+    scroll-padding-top: 80px; /* Aligns content cleanly below sticky Navbar */
+    background-color: #050507;
+}
+
+/* Optional fine-tuning: Ensure the particles background doesn't block clicks */
+#tsparticles, canvas {
+    pointer-events: none !important;
 }
