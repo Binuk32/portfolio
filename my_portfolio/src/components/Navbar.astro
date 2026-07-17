@@ -21,11 +21,11 @@ import myLogo from '../assets/logo.png';
         </div>
 
         <nav class="flex items-center justify-center gap-5 sm:gap-6 md:gap-8 text-xs sm:text-sm font-medium text-zinc-400 overflow-x-auto max-w-full no-scrollbar py-1">
-            <a href="#about" class="hover:text-white whitespace-nowrap transition-colors duration-150 py-1">About</a>
-            <a href="#experience" class="hover:text-white whitespace-nowrap transition-colors duration-150 py-1">Experience</a>
-            <a href="#education" class="hover:text-white whitespace-nowrap transition-colors duration-150 py-1">Education</a>
-            <a href="#projects" class="hover:text-white whitespace-nowrap transition-colors duration-150 py-1">Projects</a>
-            <a href="#contact" class="hover:text-white whitespace-nowrap transition-colors duration-150 py-1">Contact</a>
+            <a href="#about" class="nav-link relative py-1 hover:text-white transition-colors duration-150">About</a>
+            <a href="#experience" class="nav-link relative py-1 hover:text-white transition-colors duration-150">Experience</a>
+            <a href="#education" class="nav-link relative py-1 hover:text-white transition-colors duration-150">Education</a>
+            <a href="#projects" class="nav-link relative py-1 hover:text-white transition-colors duration-150">Projects</a>
+            <a href="#contact" class="nav-link relative py-1 hover:text-white transition-colors duration-150">Contact</a>
         </nav>
 
     </div>
@@ -40,4 +40,78 @@ import myLogo from '../assets/logo.png';
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
+    /* Smooth underline animation */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #06b6d4; /* Matches Tailwind cyan-500 */
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+
+    /* Show underline on hover */
+    .nav-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    /* Active state classes (added via JS) */
+    .nav-link.active {
+        color: white;
+    }
+
+    .nav-link.active::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
 </style>
+
+<script>
+    function setupScrollSpy() {
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Use a TypeScript type guard (.filter(Boolean) isn't enough for the compiler here)
+        const sections = Array.from(navLinks).map(link => {
+            const id = link.getAttribute('href')?.substring(1);
+            return id ? document.getElementById(id) : null;
+        }).filter((section): section is HTMLElement => section !== null);
+
+        if (sections.length === 0) return;
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px',
+            threshold: 0
+        };
+
+        // Explicitly type the entries parameter as IntersectionObserverEntry[]
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.id;
+
+                    navLinks.forEach((link) => {
+                        if (link.getAttribute('href') === `#${activeId}`) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Since we explicitly filtered out nulls above, TS knows 'section' is safely an Element
+        sections.forEach(section => observer.observe(section));
+    }
+
+    setupScrollSpy();
+</script>
