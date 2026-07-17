@@ -1,8 +1,11 @@
 import { defineConfig } from 'astro/config';
+import tailwind from '@tailwindcss/vite'; // 👈 Imports the Tailwind v4 plugin
 
 export default defineConfig({
-  // Replace 'your-username' and 'your-repo-name' with your actual GitHub details
   site: 'https://Binuk32.github.io',
   base: '/portfolio',
   output: 'static', // Ensures Astro builds static files
+  vite: {
+    plugins: [tailwind()], // 👈 Registers the plugin inside Vite's compiler
+  }
 });
