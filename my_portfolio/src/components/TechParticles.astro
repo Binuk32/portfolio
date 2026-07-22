@@ -1,25 +1,24 @@
 <div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-100">
-    <div class="absolute inset-0 bg-[#050507]/20 backdrop-blur-[2px]"></div>
+    <!-- Reduced blur amount: backdrop-blur-[2px] is extremely expensive on mobile GPUs -->
+    <div class="absolute inset-0 bg-[#050507]/20"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js" is:inline></script>
 
 <script is:inline>
     (async () => {
-        // Quick check to see if the user is on a mobile device
-        const isMobile = window.innerWidth < 768;
+        // Precise mobile check
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
         await tsParticles.load("tsparticles-grid", {
             background: { color: { value: "#050507" } },
-            // Lower FPS limit on mobile dramatically reduces CPU usage
-            fpsLimit: isMobile ? 60 : 120,
+            // Cap FPS to 30 or 60 max on mobile to prevent main-thread UI thread blocking
+            fpsLimit: isMobile ? 30 : 60,
             interactivity: {
                 events: {
-                    onClick: { enable: true, mode: "repulse" },
-                    onHover: {
-                        enable: !isMobile, // Disable hover interactions on mobile (since there is no mouse hover)
-                        mode: ["bubble", "grab"]
-                    },
+                    // Disable click & hover physics engines completely on mobile to prevent input lag
+                    onClick: { enable: !isMobile, mode: "repulse" },
+                    onHover: { enable: !isMobile, mode: ["bubble", "grab"] },
                     resize: true,
                 },
                 modes: {
@@ -32,10 +31,7 @@
                     },
                     grab: {
                         distance: 200,
-                        links: {
-                            opacity: 0.35,
-                            color: "#22d3ee"
-                        }
+                        links: { opacity: 0.35, color: "#22d3ee" }
                     },
                     repulse: { distance: 150 },
                 },
@@ -46,34 +42,32 @@
                 },
                 links: {
                     color: { value: "#3b82f6" },
-                    distance: isMobile ? 130 : 160, // Tighter distance on mobile so links aren't stretched
+                    distance: isMobile ? 100 : 160,
                     enable: true,
-                    opacity: isMobile ? 0.15 : 0.2, // Slightly fainter links to save rendering power
-                    width: 0.9,
+                    opacity: isMobile ? 0.12 : 0.2,
+                    width: 0.8,
                 },
                 move: {
                     direction: "none",
                     enable: true,
                     outModes: { default: "out" },
-                    // Slower movement on mobile looks cleaner and performs better
-                    speed: isMobile ? { min: 0.3, max: 0.8 } : { min: 0.5, max: 1.5 },
+                    speed: isMobile ? 0.4 : { min: 0.5, max: 1.5 },
                     straight: false,
                 },
                 number: {
-                    density: { enable: true, area: 900 },
-                    // Drop the particle count significantly on mobile
-                    value: isMobile ? 35 : 85
+                    // Disabling density on mobile ensures strict particle cap without scaling math
+                    density: { enable: !isMobile, area: 900 },
+                    value: isMobile ? 18 : 80 // 18-20 particles is the sweet spot for mobile 60fps scrolling
                 },
                 opacity: {
                     value: { min: 0.3, max: 0.8 },
                 },
                 shape: { type: "circle" },
                 size: {
-                    value: { min: 1, max: 3.5 },
+                    value: { min: 1, max: 2.5 },
                 },
             },
-            // Disable retina detection on mobile to prevent rendering 4x the pixels
-            detectRetina: !isMobile,
+            detectRetina: true,
         });
     })();
 </script>
