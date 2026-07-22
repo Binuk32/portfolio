@@ -2,9 +2,12 @@
 // src/components/Projects.astro
 import { Image } from 'astro:assets';
 import scanmarkImg from '../assets/project-screenshots/scanmark1.png';
-import hirenearImg from '../assets/project-screenshots/hirenear.png';
-// TODO: Add your HireNear screenshot image import here
-// import hireNearImg from '../assets/project-screenshots/hirenear1.png';
+import hirenearImg from '../assets/project-screenshots/hirenear1.jpg';
+import boardmateImg from '../assets/project-screenshots/BoardMate.png';
+
+// Import Contributor Avatars
+import binukAvatar from '../assets/profile_photo.jpg';
+import mithilaAvatar from '../assets/project-screenshots/BoardMate partner.png';
 
 const projectsData = [
     {
@@ -14,7 +17,7 @@ const projectsData = [
         shortDescription: "A premium, modern full-stack ecosystem engineered to streamline university attendance, live session monitoring, and real-time student communications.",
         longDescription: "ScanMark leverages a robust three-tier architecture featuring a centralized management dashboard for administrative leads and lecturers, paired with a highly responsive cross-platform client application for undergraduates.",
         features: [
-            "Role-Based Access Control (RBAC)",
+            "Role Based Access Control (RBAC)",
             "Dynamic QR Code Generation & Verification",
             "Expo Push Notification Architecture",
             "JWT Authentication & OTP Recovery Pipelines"
@@ -26,218 +29,244 @@ const projectsData = [
         github: "https://github.com/Binuk32/qr-based-attendance-management-system"
     },
     {
+        id: "boardmate",
+        title: "BoardMate",
+        subtitle: "Location-Aware Accommodation Engine",
+        shortDescription: "A full-stack mobile marketplace connecting clients looking for housing with boarding owners publishing localized properties via interactive geographic discovery.",
+        longDescription: "Engineered with an Express/Node.js backend and a modular Expo mobile client, BoardMate manages comprehensive property lifecycles. Landlords detail occupancy metadata, targets, and pricing models, while students discover housing through spatial location search alongside fully transactional message layers.",
+        features: [
+            "Text.lk Gateway Integrated SMS OTP Verification",
+            "Location-Based Geospatial Search & Proximity Discovery",
+            "Socket.io Powered Real-Time Bidirectional Chat",
+            "CloudinaryDistributed Image Processing & Storage Systems"
+        ],
+        techStack: ["React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "Tailwind CSS"],
+        image: boardmateImg,
+        isGroup: true,
+        teamSize: 2,
+        contributors: [
+            { name: "Binuk", url: "https://github.com/Binuk32", avatar: binukAvatar },
+            { name: "Mithila", url: "https://github.com/Mithila-Minidul", avatar: mithilaAvatar }
+        ]
+    },
+    {
         id: "hirenear",
         title: "HireNear",
         subtitle: "Location-Aware Freelance Marketplace",
         shortDescription: "A location-aware full-stack mobile ecosystem pairing localized service seekers with freelance workers alongside real-time administration systems.",
         longDescription: "Built with a React Native mobile client and a Node.js/Express backend, HireNear handles end-to-end hiring workflows including local matchmaking, robust OTP registration pipelines, bidirectional chat networks, and live administrative oversight.",
         features: [
-            "SMS OTP-Verified Registration & Password Reset Flows",
-            "Stateless JWT Authentication with Admin Middleware Bans",
-            "Socket.io Direct Chat & Auto-Responding Admin Support Channels",
-            "Cloudinary-Backed Media Uplinks & Expo Mapping/Location Engines"
+            "SMS OTP-Verified Registration Flows",
+            "Stateless JWT Auth with Admin Middleware Bans",
+            "Socket.io Direct Chat & Auto-Responding Admin Channels",
+            "Cloudinary Media Uplinks & Expo Location Engines"
         ],
         techStack: ["React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "React.js", "Tailwind CSS"],
-        // TODO: Swap this with hireNearImg once your asset path is ready
         image: hirenearImg,
         isGroup: true,
-        teamSize: 6, // You + 5 more students
-        github: "https://github.com/SadeshRaj/HireNear-Mobile-App" // Update with your actual repo
+        teamSize: 6,
+        github: "https://github.com/SadeshRaj/HireNear-Mobile-App"
     }
 ];
 ---
 
-<section id="projects" class="reveal-projects opacity-0 translate-y-12 transition-all duration-1000 ease-out relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 py-20 md:py-32 border-t border-zinc-900/80">
+<section id="projects" class="reveal-projects opacity-0 translate-y-8 transition-all duration-1000 ease-out relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 py-16 md:py-28">
 
-    <div class="absolute top-1/3 right-1/4 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-cyan-500/10 rounded-full blur-[120px] sm:blur-[200px] pointer-events-none"></div>
+    <!-- Subtle Ambient Glow -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] sm:w-[400px] h-[350px] sm:h-[400px] bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none"></div>
 
-    <div class="flex flex-col items-start text-left mb-12 md:mb-20 max-w-3xl">
-        <div class="flex items-center gap-2 px-3 py-1 bg-zinc-900/80 border border-zinc-800 rounded-full mb-4">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span class="text-xs font-semibold text-zinc-400 tracking-wider uppercase">Portfolio Showcase</span>
+    <!-- Section Header -->
+    <div class="flex flex-col items-start mb-10 md:mb-16 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900/60 border border-zinc-800/80 rounded-full mb-3 sm:mb-4 backdrop-blur-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]"></span>
+            <span class="text-[10px] font-bold text-zinc-400 tracking-widest uppercase font-mono">Engineering Showcase</span>
         </div>
-        <h2 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
-            Featured Projects
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
+            Featured Systems <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-200">& Application Ecosystems</span>
         </h2>
-        <p class="mt-4 text-zinc-400 text-lg md:text-xl font-light leading-relaxed">
-            A showcase of application ecosystems, engineering principles, and production ready platforms.
+        <p class="mt-2.5 sm:mt-3 text-zinc-400 text-xs sm:text-base font-light leading-relaxed">
+            Hover on desktop or tap any card on mobile to expand technical blueprints and architecture highlights.
         </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-        {projectsData.map((project) => (
-            /* Card Container: Tap trigger class added. Note the cursor-pointer on mobile */
-                <div data-project-card class="project-card relative group rounded-[2rem] sm:rounded-[2.5rem] border border-cyan-500/20 bg-[#070f1e]/60 backdrop-blur-2xl p-5 sm:p-7 transition-all duration-500 md:hover:-translate-y-2 md:hover:border-cyan-400/60 md:hover:bg-[#0a162d]/80 shadow-[0_0_40px_-12px_rgba(6,182,212,0.1)] md:hover:shadow-[0_0_60px_-5px_rgba(6,182,212,0.35)] flex flex-col h-[550px] sm:h-[580px] md:h-[600px] overflow-hidden cursor-pointer md:cursor-default select-none active:scale-[0.98]">
+    <!-- Compact Project Cards List -->
+    <div class="space-y-4 sm:space-y-6">
+        {projectsData.map((project) => {
+            return (
+                    <div
+                            class="project-card group relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl hover:border-cyan-500/40 hover:bg-zinc-900/50 transition-all duration-300 shadow-lg cursor-pointer select-none lg:select-auto"
+                            data-project-id={project.id}
+                    >
+                        <!-- Top Edge Accent Glow -->
+                        <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                    {/* Corner Blur Glow */}
-                    <div class="absolute -top-32 -right-32 w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-3xl opacity-40 md:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                        <div class="p-4 sm:p-6 flex flex-col gap-3 sm:gap-4">
 
-                    {/* Screenshot Container */}
-                    <div class="relative w-full h-44 sm:h-52 md:h-56 rounded-2xl border border-zinc-800/80 bg-zinc-950 overflow-hidden mb-5 sm:mb-6 transition-all duration-500 z-10 shadow-2xl md:group-hover:border-cyan-500/40 flex items-center justify-center shrink-0">
-                        <Image
-                                src={project.image}
-                                alt={`${project.title} Interface Screenshot`}
-                                class="w-full h-full object-cover opacity-75 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-700 pointer-events-none"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40 pointer-events-none"></div>
+                            <!-- Header Row (Mobile-First Layout) -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4">
 
-                        {/* Hover overlay is strictly disabled on mobile screen sizes */}
-                        <div class="hidden md:flex absolute inset-0 bg-[#050b14]/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 items-center justify-center transition-all duration-300">
-                            <div class="px-6 py-2.5 rounded-full bg-cyan-400 text-black font-extrabold text-xs tracking-wider flex items-center gap-2 shadow-[0_0_30px_rgba(6,182,212,0.6)] transform translate-y-3 group-hover:translate-y-0 transition-all duration-300">
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                </svg>
-                                VIEW DETAILS
+                                <!-- Main Information -->
+                                <div class="flex-1 space-y-1 sm:space-y-1.5">
+                                    <div class="flex items-center justify-between md:justify-start gap-2 sm:gap-3">
+                                        <div class="flex items-center gap-2 sm:gap-3">
+                                            <h3 class="text-lg sm:text-2xl font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors duration-300">
+                                                {project.title}
+                                            </h3>
+                                            {project.isGroup && (
+                                                    <span class="text-[9px] font-mono font-bold px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full uppercase tracking-wider">
+                                                Team of {project.teamSize}
+                                            </span>
+                                            )}
+                                        </div>
+
+                                        <!-- Mobile Toggle Chevron Indicator -->
+                                        <div class="flex md:hidden items-center gap-1 px-2.5 py-1 bg-zinc-950/80 border border-zinc-800/80 rounded-full text-[9px] font-mono text-zinc-400 group-hover:text-cyan-300 transition-colors">
+                                            <span class="group-[.is-expanded]:hidden">Expand</span>
+                                            <span class="hidden group-[.is-expanded]:inline">Close</span>
+                                            <svg class="w-3 h-3 transform transition-transform duration-300 group-[.is-expanded]:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-[10px] sm:text-[11px] font-semibold text-cyan-400/90 tracking-wide uppercase font-mono">
+                                        {project.subtitle}
+                                    </p>
+                                    <p class="text-zinc-400 text-xs font-light line-clamp-2 leading-relaxed max-w-2xl">
+                                        {project.shortDescription}
+                                    </p>
+                                </div>
+
+                                <!-- Image Preview Area -->
+                                <div class="relative rounded-xl border border-zinc-800/80 bg-zinc-950 overflow-hidden w-full md:w-48 aspect-[16/9] md:aspect-[16/8] shrink-0 shadow-md group-hover:border-cyan-500/30 transition-all duration-300">
+                                    <Image
+                                            src={project.image}
+                                            alt={`${project.title} Preview`}
+                                            class="w-full h-full object-cover opacity-75 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500 pointer-events-none"
+                                    />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent"></div>
+
+                                    <!-- Desktop Indicator (Hidden on Mobile) -->
+                                    <div class="hidden md:flex absolute bottom-1.5 right-1.5 items-center gap-1 px-2 py-0.5 bg-zinc-950/80 border border-zinc-800/80 rounded-full text-[9px] font-mono text-zinc-400 group-hover:text-cyan-300 transition-colors backdrop-blur-md">
+                                        <span>Expand</span>
+                                        <svg class="w-2.5 h-2.5 transform transition-transform group-hover:translate-y-0.5 group-[.is-expanded]:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="flex-1 flex flex-col justify-between relative z-10 overflow-hidden">
-                        <div class="space-y-2.5 sm:space-y-3">
-                            <div class="flex items-center justify-between gap-2">
-                                <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight md:group-hover:text-cyan-200 transition-colors duration-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.15)] truncate">
-                                    {project.title}
-                                </h3>
-                                {project.isGroup && (
-                                        <span class="text-[9px] sm:text-[10px] px-2 py-0.5 sm:py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 rounded-md font-bold uppercase tracking-wider whitespace-nowrap">
-                                        Team of {project.teamSize}
-                                    </span>
-                                )}
-                            </div>
-                            <p class="text-xs sm:text-sm font-extrabold text-cyan-400 tracking-wide uppercase">
-                                {project.subtitle}
-                            </p>
-                            <p class="text-zinc-300 md:group-hover:text-white/90 text-xs sm:text-sm font-light leading-relaxed line-clamp-3 pt-0.5 transition-colors duration-300">
-                                {project.shortDescription}
-                            </p>
-                        </div>
-
-                        {/* Tech Stack wrapper */}
-                        <div class="pt-4 sm:pt-6 border-t border-zinc-800/60 mt-auto">
-                            <div class="flex flex-wrap gap-1.5 sm:gap-2 max-h-[80px] overflow-y-auto custom-scrollbar">
+                            <!-- Tech Stack Badges -->
+                            <div class="flex flex-wrap gap-1 sm:gap-1.5 pt-2 border-t border-zinc-800/50">
                                 {project.techStack.map((tech) => (
-                                        <span class="text-[10px] sm:text-[11px] font-mono font-bold tracking-wide px-2.5 py-1 sm:py-1.5 bg-cyan-950/40 md:hover:bg-cyan-400 md:hover:text-black border border-cyan-500/30 text-cyan-300 rounded-xl transition-all duration-200 shadow-[0_0_15px_-3px_rgba(34,211,238,0.15)] whitespace-nowrap">
-                                        {tech}
-                                    </span>
+                                        <span class="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 bg-zinc-950/80 border border-zinc-800/80 text-zinc-400 rounded-md transition-colors group-hover:border-cyan-500/20 group-hover:text-cyan-300">
+                                    {tech}
+                                </span>
                                 ))}
                             </div>
-                        </div>
-                    </div>
 
-                    {/* Slide-up Architecture Overlay - Added active class compatibility */}
-                    <div class="details-panel absolute inset-x-0 bottom-0 h-[78%] sm:h-[72%] md:h-[65%] bg-[#040914] border-t border-cyan-500/30 p-5 sm:p-7 flex flex-col justify-between transform translate-y-full opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 ease-out z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.9)] pointer-events-none md:pointer-events-auto">
+                            <!-- Smooth Expandable Section -->
+                            <div class="expandable-content grid grid-rows-[0fr] transition-all duration-500 ease-in-out group-hover:grid-rows-[1fr] group-[.is-expanded]:grid-rows-[1fr]">
+                                <div class="overflow-hidden">
+                                    <div class="pt-3 sm:pt-4 mt-1 sm:mt-2 border-t border-zinc-800/60 space-y-3.5 sm:space-y-4">
 
-                        <div class="space-y-3 sm:space-y-4 overflow-y-auto pr-1 custom-scrollbar">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-3 bg-cyan-400 rounded-full shadow-[0_0_8px_#22d3ee]"></span>
-                                    <h4 class="text-xs font-black uppercase tracking-widest text-zinc-300">Architecture Insights</h4>
+                                        <!-- Architectural Highlights -->
+                                        <div class="space-y-2">
+                                            <h4 class="text-[10px] font-bold uppercase tracking-widest text-cyan-400 flex items-center gap-1.5 font-mono">
+                                                <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_6px_rgba(34,211,238,0.8)]"></span> Architecture Highlights
+                                            </h4>
+                                            <p class="text-xs text-zinc-300 leading-relaxed italic">
+                                                {project.longDescription}
+                                            </p>
+                                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 pt-1">
+                                                {project.features.map((feature) => (
+                                                        <li class="flex items-center gap-2 text-[11px] sm:text-xs font-normal text-zinc-300 bg-zinc-950/50 px-2.5 sm:px-3 py-1.5 rounded-lg border border-zinc-800/40">
+                                                            <span class="text-cyan-400 font-bold text-[10px] select-none">✓</span>
+                                                            <span class="truncate">{feature}</span>
+                                                        </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        <!-- Bottom Action Bar (Contributors & Codebase Link) -->
+                                        <div class="flex flex-wrap items-center justify-between pt-2.5 sm:pt-3 gap-3 border-t border-zinc-800/40">
+                                            {project.contributors ? (
+                                                    <div class="flex items-center gap-2.5 bg-zinc-950/60 border border-zinc-800/80 rounded-xl px-2.5 sm:px-3 py-1">
+                                                        <span class="text-[9px] font-bold tracking-wider text-zinc-400 uppercase font-mono">Contributors</span>
+                                                        <div class="flex items-center -space-x-1.5">
+                                                            {project.contributors.map((member) => (
+                                                                    <a
+                                                                            href={member.url}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            class="relative group/avatar block transition-transform duration-300 hover:scale-110 hover:z-30"
+                                                                            onclick="event.stopPropagation()"
+                                                                    >
+                                                                        <Image
+                                                                                src={member.avatar}
+                                                                                alt={`${member.name}'s Profile`}
+                                                                                class="w-5 sm:w-6 h-5 sm:h-6 rounded-full border border-zinc-800 object-cover bg-zinc-900 shadow-sm group-hover/avatar:border-cyan-400"
+                                                                        />
+                                                                        <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-0.5 text-[9px] font-mono font-medium text-cyan-300 bg-zinc-950 border border-zinc-800 rounded opacity-0 pointer-events-none group-hover/avatar:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
+                                                                {member.name}
+                                                            </span>
+                                                                    </a>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                            ) : (
+                                                    <div class="w-1"></div>
+                                            )}
+
+                                            <!-- GitHub Repository Button -->
+                                            {project.github && (
+                                                    <a
+                                                            href={project.github}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onclick="event.stopPropagation()"
+                                                            class="inline-flex items-center justify-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-200 bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 hover:text-white hover:border-cyan-500/40 active:scale-95 transition-all duration-200 shadow-md ml-auto"
+                                                    >
+                                                        <svg class="w-3.5 h-3.5 fill-current opacity-80" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                                        Codebase
+                                                    </a>
+                                            )}
+                                        </div>
+
+                                    </div>
                                 </div>
-                                {/* Close button - clearly visible and clickable on Mobile */}
-                                <button data-close-panel class="md:hidden text-zinc-400 active:text-cyan-400 hover:text-cyan-400 p-2 transition-colors -mr-2" aria-label="Close details">
-                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
                             </div>
-                            <p class="text-[11px] sm:text-xs font-normal text-zinc-300 leading-relaxed">
-                                {project.longDescription}
-                            </p>
 
-                            <div class="pt-1.5 space-y-2">
-                                <h4 class="text-[11px] sm:text-xs font-black uppercase tracking-widest text-zinc-300">Core Capabilities</h4>
-                                <ul class="space-y-1.5 sm:space-y-2">
-                                    {project.features.map((feature) => (
-                                            <li class="flex items-start gap-2 text-[11px] sm:text-xs font-normal text-zinc-200">
-                                                <span class="text-cyan-400 mt-0.5 text-xs drop-shadow-[0_0_5px_rgba(6,182,212,0.6)]">✦</span>
-                                                <span>{feature}</span>
-                                            </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Interactive Primary GitHub Action */}
-                        <div class="pt-4 border-t border-zinc-900 mt-2">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full px-4 py-3 sm:py-3.5 rounded-xl text-xs font-black uppercase tracking-wider text-black bg-cyan-400 active:bg-cyan-300 border border-cyan-300 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                Explore Repository
-                            </a>
                         </div>
                     </div>
-
-                </div>
-        ))}
+            );
+        })}
     </div>
 </section>
 
 <script>
-    // Reveal Observer for Intro animations
+    // Reveal Section Observer
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.remove('opacity-0', 'translate-y-12');
+                entry.target.classList.remove('opacity-0', 'translate-y-8');
                 entry.target.classList.add('opacity-100', 'translate-y-0');
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
     const target = document.querySelector('.reveal-projects');
     if (target) revealObserver.observe(target);
 
-    // Optimized Mobile Touch/Tap handlers
-    const cards = document.querySelectorAll('[data-project-card]');
-
+    // Click/Tap toggle handling for touch devices (< 1024px width)
+    const cards = document.querySelectorAll('.project-card');
     cards.forEach((card) => {
-        const panel = card.querySelector('.details-panel');
-        const closeBtn = card.querySelector('[data-close-panel]');
-
         card.addEventListener('click', (e) => {
-            if (window.innerWidth < 768) {
-                const targetElement = e.target as HTMLElement;
-
-                // 1. If close button was tapped, shut the panel down
-                if (closeBtn && (closeBtn.contains(targetElement) || closeBtn === targetElement)) {
-                    e.stopPropagation();
-                    panel?.classList.remove('active-panel');
-                    return;
-                }
-
-                // 2. If panel is already open and they are tapping links inside it, let the tap pass through
-                if (panel?.classList.contains('active-panel')) {
-                    if (panel.contains(targetElement)) {
-                        return; // Let native link behavior work
-                    }
-                }
-
-                // 3. Otherwise, open the panel
-                panel?.classList.add('active-panel');
+            if (window.innerWidth < 1024) {
+                card.classList.toggle('is-expanded');
             }
         });
     });
 </script>
-
-<style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 999px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #06b6d4;
-    }
-
-    /* Target the state strictly using the standard Astro global modifier */
-    :global(.active-panel) {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-    }
-</style>
