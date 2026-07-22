@@ -11,6 +11,7 @@ const educationData = [
         status: "3rd Year Undergraduate Student",
         period: "Mar 2024 - Present",
         logo: sliitLogo,
+        grades: [],
         details: [
             "Deepening knowledge in advanced software architecture, cloud platforms, and full-stack enterprise systems.",
             "Maintaining strong practical execution across modern engineering stacks."
@@ -19,9 +20,14 @@ const educationData = [
     {
         institution: "H/Ruhunu Vijayaba National College",
         degree: "G.C.E. Advanced Level (Physical Science Stream)",
-        status: "Mathematics Stream — B (Combined Maths), C (Chemistry), S (Physics)",
+        status: "Physical Science Stream",
         period: "Mar 2021 - Jan 2024",
         logo: ruhunuVijayabaLogo,
+        grades: [
+            { subject: "Combined Maths", grade: "B", type: "good" },
+            { subject: "Chemistry", grade: "C", type: "average" },
+            { subject: "Physics", grade: "S", type: "pass" }
+        ],
         details: [
             "Developed core mathematical, problem-solving, and analytical foundations critical for computer science.",
             "Graduated with verified high academic standing."
@@ -30,9 +36,14 @@ const educationData = [
     {
         institution: "H/Ruhunu Vijayaba National College",
         degree: "G.C.E. Ordinary Level",
-        status: "Passed with 6 A's (including Mathematics and Science), 1 B, 2 C's",
+        status: "Passed with Distinction Summary",
         period: "Jan 2015 - Mar 2021",
         logo: ruhunuVijayabaLogo,
+        grades: [
+            { subject: "6 A's:", grade: "Inc. Maths & Science", type: "excellent" },
+            { subject: "1 B", type: "good" },
+            { subject: "2 C's", type: "average" }
+        ],
         details: [
             "Exhibited early excellence across core science and computational logic tracks.",
             "Active participant in extracurricular science and math circles."
@@ -50,7 +61,7 @@ const educationData = [
     <div class="flex flex-col items-center md:items-start text-center md:text-left mb-10 md:mb-24 max-w-3xl">
         <div class="flex items-center gap-2 px-3 py-1 bg-zinc-900/80 border border-zinc-800 rounded-full mb-3 sm:mb-4">
             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span class="text-[10px] sm:text-xs font-semibold text-zinc-400 tracking-wider uppercase">Academic Journey</span>
+            <span class="text-[10px] sm:text-xs font-semibold text-zinc-400 tracking-wider uppercase font-mono">Academic Journey</span>
         </div>
         <h2 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
             Education
@@ -112,6 +123,26 @@ const educationData = [
                                     <p class="text-[11px] sm:text-sm font-medium text-zinc-400 italic">
                                         {item.status}
                                     </p>
+
+                                    <!-- Grade Badges Container -->
+                                    {item.grades && item.grades.length > 0 && (
+                                            <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 sm:pt-2">
+                                                {item.grades.map((g) => (
+                                                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900/90 border border-zinc-800 text-xs shadow-sm">
+                                                            <span class="text-zinc-300 font-medium text-[11px] sm:text-xs">{g.subject}</span>
+                                                            {g.grade && (
+                                                                    <span class={`font-mono font-bold text-[11px] sm:text-xs ${
+                                                                        g.type === 'excellent' ? 'text-emerald-400' :
+                                                                            g.type === 'good' ? 'text-cyan-400' :
+                                                                                g.type === 'average' ? 'text-amber-400' : 'text-zinc-400'
+                                                                    }`}>
+                                                                    {g.grade}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                ))}
+                                            </div>
+                                    )}
 
                                     <!-- Bullet Details -->
                                     <ul class="mt-3 sm:mt-4 space-y-1.5 text-zinc-400/90 text-xs sm:text-sm font-light max-w-2xl">
