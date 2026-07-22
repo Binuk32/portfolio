@@ -6,48 +6,51 @@ import Navbar from '../components/Navbar.astro';
 import Experience from '../components/Experience.astro';
 import Education from '../components/Education.astro';
 import Projects from '../components/Projects.astro';
-import Contact from '../components/contact.astro'
+import Contact from '../components/contact.astro';
 import { Image } from 'astro:assets';
 import profilePhoto from '../assets/profile_photo.jpg';
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binuk Pinsara | Software Engineer Portfolio</title>
 </head>
 
-<body class="bg-[#050507] text-white font-sans min-h-screen relative flex flex-col overflow-x-hidden">
+<body class="bg-[#050507] text-white font-sans min-h-screen relative flex flex-col overflow-x-hidden antialiased">
 
 <TechParticles />
 
 <Navbar />
 
-<main id="about" class="relative z-10 flex flex-1 flex-col md:flex-row items-center justify-center max-w-7xl mx-auto w-full px-4 sm:px-6 min-h-[calc(100vh-73px)] py-12 md:py-6 gap-10 md:gap-16">
+<main id="about" class="relative z-10 flex flex-1 flex-col md:flex-row items-center justify-center max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 md:py-16 gap-8 md:gap-16 min-h-[85vh] md:min-h-[calc(100vh-73px)]">
 
-    <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- Ambient Glow Background -->
+    <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-60 sm:w-72 h-60 sm:h-72 bg-blue-600/5 rounded-full blur-[90px] md:blur-[120px] pointer-events-none"></div>
 
+    <!-- Text Content -->
     <div class="flex flex-col items-center md:items-start text-center md:text-left max-w-2xl flex-1 order-2 md:order-1">
 
-        <p class="text-zinc-400 text-base md:text-xl font-medium tracking-wide mb-2">
+        <p class="text-zinc-400 text-sm sm:text-base md:text-xl font-medium tracking-wide mb-1.5 sm:mb-2 font-mono">
             Hi, my name is
         </p>
 
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none text-white">
+        <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-tight md:leading-none text-white">
             Binuk Pinsara
         </h1>
 
-        <p class="mt-4 md:mt-6 text-base md:text-xl text-zinc-400 font-light leading-relaxed px-2 md:px-0">
+        <p class="mt-3 sm:mt-5 text-xs sm:text-base md:text-xl text-zinc-400 font-light leading-relaxed px-1 md:px-0 max-w-xl">
             A Software Engineering undergraduate and full-stack developer passionate about creating high-quality web and mobile applications.
             I enjoy working across the entire development stack from designing intuitive user interfaces to developing secure, scalable backend systems.
         </p>
 
-        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 w-full sm:w-auto">
-            <a href="#projects" class="w-full sm:w-auto relative group/btn inline-flex items-center justify-center px-8 py-3.5 font-semibold text-white bg-zinc-950 rounded-xl overflow-hidden transition-all duration-300 border border-zinc-800 hover:border-cyan-500/50 shadow-xl hover:shadow-cyan-500/10 transform hover:scale-[1.02]">
+        <!-- CTA Action Buttons -->
+        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
+            <a href="#projects" class="w-full sm:w-auto relative group/btn inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 font-semibold text-white bg-zinc-950 rounded-xl overflow-hidden transition-all duration-300 border border-zinc-800 hover:border-cyan-500/50 shadow-lg hover:shadow-cyan-500/10 active:scale-95">
                 <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
-                <span class="relative flex items-center justify-center gap-2 text-sm tracking-wide">
+                <span class="relative flex items-center justify-center gap-2 text-xs sm:text-sm tracking-wide">
                     View Projects
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -55,7 +58,7 @@ import profilePhoto from '../assets/profile_photo.jpg';
                 </span>
             </a>
 
-            <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 bg-zinc-900/40 text-zinc-300 hover:text-white font-medium text-sm tracking-wide rounded-xl hover:bg-zinc-800/60 transition-all duration-150 flex items-center justify-center gap-2 border border-zinc-800/80 hover:border-zinc-700">
+            <a href="#contact" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-zinc-900/40 text-zinc-300 hover:text-white font-medium text-xs sm:text-sm tracking-wide rounded-xl hover:bg-zinc-800/60 transition-all duration-150 flex items-center justify-center gap-2 border border-zinc-800/80 hover:border-zinc-700 active:scale-95">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                 </svg>
@@ -64,15 +67,18 @@ import profilePhoto from '../assets/profile_photo.jpg';
         </div>
     </div>
 
-    <div class="flex justify-center items-center flex-1 order-1 md:order-2">
+    <!-- Profile Image Showcase -->
+    <div class="flex justify-center items-center flex-1 order-1 md:order-2 pt-4 md:pt-0">
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-blue-600/20 rounded-[2.5rem] md:rounded-[3.5rem] blur-2xl opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"></div>
+            <!-- Lightweight Glow Backing -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-blue-600/15 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3.5rem] blur-xl opacity-60 md:opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"></div>
 
-            <div class="relative rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border border-zinc-800/80 bg-zinc-900/30 p-2.5 md:p-3 transform group-hover:scale-[1.01] group-hover:border-zinc-700/60 transition-all duration-500 shadow-2xl">
+            <div class="relative rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border border-zinc-800/80 bg-zinc-900/30 p-2 sm:p-2.5 md:p-3 transform group-hover:scale-[1.01] group-hover:border-zinc-700/60 transition-all duration-500 shadow-xl">
                 <Image
                         src={profilePhoto}
                         alt="Binuk Pinsara"
-                        class="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover rounded-[2rem] md:rounded-[2.8rem] grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                        loading="eager"
+                        class="w-44 h-44 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover rounded-[1.6rem] sm:rounded-[2rem] md:rounded-[2.8rem] grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
                 />
             </div>
         </div>
