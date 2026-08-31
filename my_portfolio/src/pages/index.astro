@@ -8,6 +8,7 @@ import Education from '../components/Education.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/contact.astro';
 import Footer from '../components/Footer.astro'
+import resume from '../assets/resume.pdf';
 import { Image } from 'astro:assets';
 import profilePhoto from '../assets/profile_photo.jpg';
 ---
@@ -57,6 +58,14 @@ import profilePhoto from '../assets/profile_photo.jpg';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                     </svg>
                 </span>
+            </a>
+
+            <!-- Download Resume Button -->
+            <a href={resume} download="Binuk_Pinsara_CV.pdf" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-zinc-900/40 text-zinc-300 hover:text-white font-medium text-xs sm:text-sm tracking-wide rounded-xl hover:bg-zinc-800/60 transition-all duration-150 flex items-center justify-center gap-2 border border-zinc-800/80 hover:border-zinc-700 active:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-400 group-hover:text-cyan-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download CV
             </a>
 
             <a href="#contact" class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-zinc-900/40 text-zinc-300 hover:text-white font-medium text-xs sm:text-sm tracking-wide rounded-xl hover:bg-zinc-800/60 transition-all duration-150 flex items-center justify-center gap-2 border border-zinc-800/80 hover:border-zinc-700 active:scale-95">
