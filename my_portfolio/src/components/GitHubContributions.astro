@@ -31,6 +31,7 @@ const username = 'Binuk32';
 
         <div class="calendar-scroll overflow-x-auto pb-2" tabindex="0" aria-label="Scrollable GitHub contribution calendar">
             <div class="calendar-layout">
+                <div class="month-labels" aria-hidden="true"></div>
                 <div class="weekday-labels" aria-hidden="true">
                     <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
                 </div>
@@ -81,11 +82,27 @@ const username = 'Binuk32';
                 grid.append(spacer);
             }
 
-            for (const contribution of data.contributions) {
+            const monthLabels = document.querySelector('.month-labels');
+            const seenMonths = new Set();
+            let previousMonthWeek = -1;
+
+            for (const [index, contribution] of data.contributions.entries()) {
                 if (typeof contribution.date !== 'string' || typeof contribution.count !== 'number') continue;
 
                 const date = new Date(`${contribution.date}T00:00:00Z`);
                 if (Number.isNaN(date.getTime())) continue;
+                const weekIndex = Math.floor((index + offset) / 7);
+                const monthKey = `${date.getUTCFullYear()}-${date.getUTCMonth()}`;
+
+                if (monthLabels instanceof HTMLElement && !seenMonths.has(monthKey)) {
+                    const month = document.createElement('span');
+                    month.className = 'month-label';
+                    month.textContent = new Intl.DateTimeFormat(undefined, { month: 'short', timeZone: 'UTC' }).format(date);
+                    month.style.left = `calc(${Math.max(weekIndex, previousMonthWeek + 1)} * var(--week-width))`;
+                    monthLabels.append(month);
+                    seenMonths.add(monthKey);
+                    previousMonthWeek = Math.max(weekIndex, previousMonthWeek + 1);
+                }
 
                 const day = document.createElement('span');
                 const level = Number.isInteger(contribution.level) ? Math.min(4, Math.max(0, contribution.level)) : 0;
@@ -114,6 +131,21 @@ const username = 'Binuk32';
         min-width: 100%;
     }
 
+    .month-labels {
+        --week-width: 0.95rem;
+        position: relative;
+        grid-column: 2;
+        height: 0.75rem;
+        width: max-content;
+        color: #71717a;
+        font: 0.625rem/1 ui-monospace, monospace;
+    }
+
+    .month-label {
+        position: absolute;
+        white-space: nowrap;
+    }
+
     .weekday-labels,
     .contribution-grid {
         display: grid;
@@ -131,6 +163,11 @@ const username = 'Binuk32';
 
     .contribution-grid {
         grid-auto-columns: 0.7rem;
+        grid-row: 2;
+    }
+
+    .weekday-labels {
+        grid-row: 2;
     }
 
     .day-cell {
@@ -151,6 +188,12 @@ const username = 'Binuk32';
         .calendar-layout {
             grid-template-columns: 1.5rem max-content;
             gap: 0.3rem;
+        }
+
+        .month-labels {
+            --week-width: 0.73rem;
+            height: 0.7rem;
+            font-size: 0.55rem;
         }
 
         .weekday-labels {
