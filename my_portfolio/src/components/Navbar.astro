@@ -2,6 +2,7 @@
 // src/components/Navbar.astro
 import { Image } from 'astro:assets';
 import myLogo from '../assets/logo.png';
+import myLogoLightMode from '../assets/logo light mode.png';
 
 // Respect the site's base path (/portfolio)
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -31,10 +32,18 @@ const links = [
 
         <!-- Logo -->
         <a href={`${base}/`} class="order-1 hover:opacity-80 transition-opacity flex items-center gap-3 group">
+            <!-- Both logos are rendered; CSS shows the right one for the current theme (no flash on load) -->
             <Image
                     src={myLogo}
                     alt="Binuk Pinsara Logo"
-                    class="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+                    class="navbar-logo-dark w-8 h-8 sm:w-10 sm:h-10 object-contain"
+            />
+            <Image
+                    src={myLogoLightMode}
+                    alt=""
+                    aria-hidden="true"
+                    loading="eager"
+                    class="navbar-logo-light w-8 h-8 sm:w-10 sm:h-10 object-contain"
             />
             <span class="text-white text-base sm:text-lg font-semibold tracking-tight">
                 BinukPinsara
@@ -85,6 +94,19 @@ const links = [
 
     </div>
 </header>
+
+<style is:global>
+    /* Logo swap: dark logo by default, light-mode logo when <html data-theme="light"> */
+    .navbar-logo-light {
+        display: none;
+    }
+    [data-theme="light"] .navbar-logo-dark {
+        display: none;
+    }
+    [data-theme="light"] .navbar-logo-light {
+        display: block;
+    }
+</style>
 
 <style>
     /* Hide scrollbar utility for the mobile navigation bar */
