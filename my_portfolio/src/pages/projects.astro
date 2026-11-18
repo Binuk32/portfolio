@@ -1,0 +1,204 @@
+---
+// src/pages/projects.astro
+import Navbar from '../components/Navbar.astro';
+import '../styles/global.css';
+import TechParticles from '../components/TechParticles.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import scanmarkImg from '../assets/project-screenshots/scanmark1.png';
+import hirenearImg from '../assets/project-screenshots/hirenear1.jpg';
+import boardmateImg from '../assets/project-screenshots/BoardMate.png';
+import binukAvatar from '../assets/profile_photo.jpg';
+import mithilaAvatar from '../assets/project-screenshots/BoardMate partner.png';
+
+// Respect the site's base path (your site is served under /portfolio)
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const projects = [
+    {
+        id: "scanmark",
+        title: "ScanMark",
+        subtitle: "QR-based attendance management system",
+        description:
+            "A full-stack platform for university attendance, live session monitoring and real-time student notifications. Lecturers and admins use a web dashboard; undergraduates use a cross-platform mobile app.",
+        features: [
+            "Role-based access control",
+            "Dynamic QR code generation and verification",
+            "Expo push notifications",
+            "JWT auth with OTP account recovery"
+        ],
+        techStack: ["Spring Boot", "React Native", "React.js", "MongoDB", "Tailwind CSS", "Expo"],
+        image: scanmarkImg,
+        teamSize: 6,
+        github: "https://github.com/Binuk32/qr-based-attendance-management-system"
+    },
+    {
+        id: "boardmate",
+        title: "BoardMate",
+        subtitle: "Location-aware accommodation finder",
+        description:
+            "A mobile marketplace that connects students with boarding owners. Owners publish properties with occupancy and pricing details; students find places through map-based search and chat with owners directly.",
+        features: [
+            "SMS OTP verification via Text.lk",
+            "Geospatial search by proximity",
+            "Real-time chat with Socket.io",
+            "Cloudinary image storage"
+        ],
+        techStack: ["React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "Tailwind CSS"],
+        image: boardmateImg,
+        teamSize: 2,
+        contributors: [
+            { name: "Binuk", url: "https://github.com/Binuk32", avatar: binukAvatar },
+            { name: "Mithila", url: "https://github.com/Mithila-Minidul", avatar: mithilaAvatar }
+        ]
+    },
+    {
+        id: "hirenear",
+        title: "HireNear",
+        subtitle: "Location-aware freelance marketplace",
+        description:
+            "A mobile app that matches people who need a service with nearby freelancers, covering the whole hiring flow from OTP sign-up and chat to live admin oversight.",
+        features: [
+            "SMS OTP-verified registration",
+            "Stateless JWT auth with admin bans",
+            "Direct chat and auto-reply admin channel",
+            "Cloudinary uploads and Expo Location"
+        ],
+        techStack: ["React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "React.js", "Tailwind CSS"],
+        image: hirenearImg,
+        teamSize: 6,
+        github: "https://github.com/SadeshRaj/HireNear-Mobile-App"
+    }
+];
+---
+
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Projects by Binuk Pinsara: ScanMark, BoardMate and HireNear." />
+    <title>Projects | Binuk Pinsara</title>
+    <script is:inline>document.documentElement.dataset.theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';</script>
+</head>
+
+<body class="bg-[#050507] text-white font-sans min-h-screen relative flex flex-col overflow-x-hidden antialiased">
+
+<TechParticles />
+
+<!-- Simple top bar: the main Navbar uses on-page anchors, so this page has its own way back -->
+<Navbar />
+
+<main class="relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-12 md:py-20">
+
+    <div class="max-w-2xl mb-12 md:mb-16">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white">Projects</h1>
+        <p class="mt-4 text-zinc-400 text-base sm:text-lg leading-relaxed">
+            Three full-stack apps built with teams at university. Each one covers the web and mobile sides, plus the backend behind them.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        {projects.map((project) => (
+                <article
+                        class="group flex flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm transition-colors duration-300 hover:border-cyan-500/40"
+                        aria-labelledby={`project-${project.id}`}
+                >
+                    <!-- Screenshot -->
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950 border-b border-zinc-800">
+                        <Image
+                                src={project.image}
+                                alt={`${project.title} screenshots`}
+                                widths={[400, 700, 1000]}
+                                sizes="(min-width: 1024px) 400px, 100vw"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                        />
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex flex-col flex-1 p-5 sm:p-6 gap-4">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                <h2 id={`project-${project.id}`} class="text-2xl font-bold tracking-tight text-white">
+                                    {project.title}
+                                </h2>
+                                <span class="text-xs text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-2.5 py-0.5">
+                                Team of {project.teamSize}
+                            </span>
+                            </div>
+                            <p class="mt-1 text-sm text-cyan-400">{project.subtitle}</p>
+                        </div>
+
+                        <p class="text-sm text-zinc-300 leading-relaxed">{project.description}</p>
+
+                        <ul class="space-y-1.5">
+                            {project.features.map((feature) => (
+                                    <li class="flex items-start gap-2.5 text-sm text-zinc-400">
+                                        <svg class="w-4 h-4 mt-0.5 shrink-0 text-cyan-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 111.4-1.4l3.8 3.8 6.8-6.8a1 1 0 011.4 0z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span>{feature}</span>
+                                    </li>
+                            ))}
+                        </ul>
+
+                        <div class="flex flex-wrap gap-1.5">
+                            {project.techStack.map((tech) => (
+                                    <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-950/70 border border-zinc-800 text-zinc-300">
+                                {tech}
+                            </span>
+                            ))}
+                        </div>
+
+                        <!-- Footer pinned to the bottom so all three cards line up -->
+                        <div class="mt-auto pt-4 border-t border-zinc-800/70 flex flex-wrap items-center justify-between gap-3 min-h-[3.5rem]">
+                            {project.contributors ? (
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm text-zinc-400">Built by</span>
+                                        <div class="flex items-center -space-x-2">
+                                            {project.contributors.map((member) => (
+                                                    <a
+                                                            href={member.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            title={member.name}
+                                                            aria-label={`${member.name} on GitHub`}
+                                                            class="block rounded-full ring-2 ring-zinc-900 transition-transform hover:scale-110 hover:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"
+                                                    >
+                                                        <Image
+                                                                src={member.avatar}
+                                                                alt={member.name}
+                                                                width={64}
+                                                                height={64}
+                                                                class="w-8 h-8 rounded-full object-cover bg-zinc-900"
+                                                        />
+                                                    </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                            ) : (
+                                    <span></span>
+                            )}
+
+                            {project.github && (
+                                    <a
+                                            href={project.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-zinc-950 bg-cyan-400 hover:bg-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 transition-colors ml-auto"
+                                    >
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                        View code
+                                    </a>
+                            )}
+                        </div>
+                    </div>
+                </article>
+        ))}
+    </div>
+</main>
+
+<Footer />
+
+</body>
+</html>

@@ -1,73 +1,119 @@
 <div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-100">
     <!-- Reduced blur amount: backdrop-blur-[2px] is extremely expensive on mobile GPUs -->
-    <div class="absolute inset-0 bg-[#050507]/20"></div>
+    <div class="particles-wash absolute inset-0"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js" is:inline></script>
 
 <script is:inline>
-    (async () => {
+    (() => {
         // Precise mobile check
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
-        await tsParticles.load("tsparticles-grid", {
-            background: { color: { value: "#050507" } },
-            // Cap FPS to 30 or 60 max on mobile to prevent main-thread UI thread blocking
-            fpsLimit: isMobile ? 30 : 60,
-            interactivity: {
-                events: {
-                    // Disable click & hover physics engines completely on mobile to prevent input lag
-                    onClick: { enable: !isMobile, mode: "repulse" },
-                    onHover: { enable: !isMobile, mode: ["bubble", "grab"] },
-                    resize: true,
-                },
-                modes: {
-                    bubble: {
-                        distance: 180,
-                        size: 8,
-                        duration: 1.5,
-                        color: ["#22d3ee", "#3b82f6", "#ffffff"],
-                        opacity: 1
-                    },
-                    grab: {
-                        distance: 200,
-                        links: { opacity: 0.35, color: "#22d3ee" }
-                    },
-                    repulse: { distance: 150 },
-                },
+        // Colours per theme. The dark palette is near-white/light blue, which disappears on a
+        // light background, so light mode uses darker, more saturated colours.
+        const PALETTES = {
+            dark: {
+                particles: ["#ffffff", "#3b82f6", "#22d3ee"],
+                links: "#3b82f6",
+                linkOpacity: isMobile ? 0.12 : 0.2,
+                particleOpacity: { min: 0.3, max: 0.8 },
+                bubble: ["#22d3ee", "#3b82f6", "#ffffff"],
+                grab: "#22d3ee"
             },
-            particles: {
-                color: {
-                    value: ["#ffffff", "#3b82f6", "#22d3ee"]
+            light: {
+                particles: ["#0f172a", "#2563eb", "#0891b2"],
+                links: "#2563eb",
+                linkOpacity: isMobile ? 0.2 : 0.3,
+                particleOpacity: { min: 0.45, max: 0.9 },
+                bubble: ["#0891b2", "#2563eb", "#0f172a"],
+                grab: "#0891b2"
+            }
+        };
+
+        function buildOptions(theme) {
+            const c = PALETTES[theme];
+            return {
+                // Cap FPS to 30 or 60 max on mobile to prevent main-thread UI thread blocking
+                fpsLimit: isMobile ? 30 : 60,
+                interactivity: {
+                    events: {
+                        // Disable click & hover physics engines completely on mobile to prevent input lag
+                        onClick: { enable: !isMobile, mode: "repulse" },
+                        onHover: { enable: !isMobile, mode: ["bubble", "grab"] },
+                        resize: true,
+                    },
+                    modes: {
+                        bubble: {
+                            distance: 180,
+                            size: 8,
+                            duration: 1.5,
+                            color: c.bubble,
+                            opacity: 1
+                        },
+                        grab: {
+                            distance: 200,
+                            links: { opacity: 0.35, color: c.grab }
+                        },
+                        repulse: { distance: 150 },
+                    },
                 },
-                links: {
-                    color: { value: "#3b82f6" },
-                    distance: isMobile ? 100 : 160,
-                    enable: true,
-                    opacity: isMobile ? 0.12 : 0.2,
-                    width: 0.8,
+                particles: {
+                    color: { value: c.particles },
+                    links: {
+                        color: { value: c.links },
+                        distance: isMobile ? 100 : 160,
+                        enable: true,
+                        opacity: c.linkOpacity,
+                        width: 0.8,
+                    },
+                    move: {
+                        direction: "none",
+                        enable: true,
+                        outModes: { default: "out" },
+                        speed: isMobile ? 0.4 : { min: 0.5, max: 1.5 },
+                        straight: false,
+                    },
+                    number: {
+                        // Disabling density on mobile ensures strict particle cap without scaling math
+                        density: { enable: !isMobile, area: 900 },
+                        value: isMobile ? 18 : 80 // 18-20 particles is the sweet spot for mobile 60fps scrolling
+                    },
+                    opacity: { value: c.particleOpacity },
+                    shape: { type: "circle" },
+                    size: { value: { min: 1, max: 2.5 } },
                 },
-                move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: { default: "out" },
-                    speed: isMobile ? 0.4 : { min: 0.5, max: 1.5 },
-                    straight: false,
-                },
-                number: {
-                    // Disabling density on mobile ensures strict particle cap without scaling math
-                    density: { enable: !isMobile, area: 900 },
-                    value: isMobile ? 18 : 80 // 18-20 particles is the sweet spot for mobile 60fps scrolling
-                },
-                opacity: {
-                    value: { min: 0.3, max: 0.8 },
-                },
-                shape: { type: "circle" },
-                size: {
-                    value: { min: 1, max: 2.5 },
-                },
-            },
-            detectRetina: true,
+                detectRetina: true,
+            };
+        }
+
+        const getTheme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+
+        let container = null;
+        let currentTheme = null;
+        let queue = Promise.resolve();
+
+        // (Re)start the particles for the current theme. Runs one at a time so quick
+        // toggling can't create two canvases.
+        function sync() {
+            queue = queue.then(async () => {
+                const theme = getTheme();
+                if (theme === currentTheme) return;
+                currentTheme = theme;
+                if (container) {
+                    container.destroy();
+                    container = null;
+                }
+                container = await tsParticles.load("tsparticles-grid", buildOptions(theme));
+            });
+        }
+
+        sync();
+
+        // The navbar toggle changes <html data-theme="...">: rebuild with the matching colours
+        new MutationObserver(sync).observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
         });
     })();
 </script>

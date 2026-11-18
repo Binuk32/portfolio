@@ -5,21 +5,24 @@ import TechParticles from '../components/TechParticles.astro';
 import Navbar from '../components/Navbar.astro';
 import Experience from '../components/Experience.astro';
 import Education from '../components/Education.astro';
-import Projects from '../components/Projects.astro';
 import GitHubContributions from '../components/GitHubContributions.astro';
 import Contact from '../components/contact.astro';
-import Footer from '../components/Footer.astro'
+import Footer from '../components/Footer.astro';
 import resume from '../../public/Resume.pdf';
 import { Image } from 'astro:assets';
 import profilePhoto from '../assets/profile_photo.jpg';
+
+// Respect the site's base path (/portfolio)
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binuk Pinsara | Software Engineer Portfolio</title>
+    <script is:inline>document.documentElement.dataset.theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';</script>
 </head>
 
 <body class="bg-[#050507] text-white font-sans min-h-screen relative flex flex-col overflow-x-hidden antialiased">
@@ -51,7 +54,7 @@ import profilePhoto from '../assets/profile_photo.jpg';
 
         <!-- CTA Action Buttons -->
         <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
-            <a href="#projects" class="w-full sm:w-auto relative group/btn inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 font-semibold text-white bg-zinc-950 rounded-xl overflow-hidden transition-all duration-300 border border-zinc-800 hover:border-cyan-500/50 shadow-lg hover:shadow-cyan-500/10 active:scale-95">
+            <a href={`${base}/projects`} class="w-full sm:w-auto relative group/btn inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 font-semibold text-white bg-zinc-950 rounded-xl overflow-hidden transition-all duration-300 border border-zinc-800 hover:border-cyan-500/50 shadow-lg hover:shadow-cyan-500/10 active:scale-95">
                 <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
                 <span class="relative flex items-center justify-center gap-2 text-xs sm:text-sm tracking-wide">
                     View Projects
@@ -101,7 +104,26 @@ import profilePhoto from '../assets/profile_photo.jpg';
 
 <Education />
 
-<Projects />
+
+{/* Projects teaser: the full list lives on the /projects page */}
+<section id="projects" class="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 py-16 md:py-24">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-zinc-800/70 pt-10">
+        <div class="max-w-xl">
+            <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
+                Projects
+            </h2>
+            <p class="mt-3 text-zinc-400 leading-relaxed">
+                I enjoy turning ideas into practical software solutions, building full-stack applications, and exploring technologies through hands-on projects and collaborative development.
+            </p>
+        </div>
+        <a
+                href={`${base}/projects`}
+                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-zinc-950 bg-cyan-400 hover:bg-cyan-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+        >
+            See all projects
+        </a>
+    </div>
+</section>
 
 <GitHubContributions />
 
