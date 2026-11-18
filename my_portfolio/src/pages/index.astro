@@ -22,6 +22,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binuk Pinsara | Software Engineer Portfolio</title>
+    <script is:inline>document.documentElement.dataset.theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';</script>
 </head>
 
 <body class="bg-[#050507] text-white font-sans min-h-screen relative flex flex-col overflow-x-hidden antialiased">

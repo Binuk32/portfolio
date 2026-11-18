@@ -1,6 +1,6 @@
 <div id="tsparticles-grid" class="absolute inset-0 z-0 pointer-events-none opacity-100">
     <!-- Reduced blur amount: backdrop-blur-[2px] is extremely expensive on mobile GPUs -->
-    <div class="absolute inset-0 bg-[#050507]/20"></div>
+    <div class="particles-wash absolute inset-0"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js" is:inline></script>
@@ -11,7 +11,6 @@
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
         await tsParticles.load("tsparticles-grid", {
-            background: { color: { value: "#050507" } },
             // Cap FPS to 30 or 60 max on mobile to prevent main-thread UI thread blocking
             fpsLimit: isMobile ? 30 : 60,
             interactivity: {
